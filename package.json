@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "a labrary for loading environment variables",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "node ./test.js"
   },
