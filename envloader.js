@@ -7,15 +7,17 @@ function envloader(path = "./.env"){
     const envContent = fs.createReadStream(path);
 
     return new Promise((resolve) => {
-
+        // set up readline
         const rl = readline.createInterface({
             input: envContent,
             crlfDelay : Infinity
         });
 
+        // get variables
         let variables = {};
 
         rl.on("line", (line) => {
+            // exclude comments and invalid variables
             if(line.includes("=") && !line.startsWith("#")){
                 
                 const kv = line.split("=", 2);
