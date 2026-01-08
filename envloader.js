@@ -11,18 +11,20 @@ function envloader(path = "./.env"){
         crlfDelay : Infinity
     });
 
-    let lines = [];
+    let variables = {};
 
     rl.on("line", (line) => {
-        const kv = line.split("=");
+        const kv = line.split("=", 2);
     
         if(kv[0] && kv[1]){
-            console.log(kv);
+            variables[kv[0]] = kv[1];
         }
-
+        
     });
 
-    // get keys and values
+    rl.on("close", () => {
+        process.env = {...process.env, ...variables};
+    })
 
 }
 
