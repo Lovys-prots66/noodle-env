@@ -1,0 +1,11 @@
+{
+  "name": "envloader",
+  "version": "1.0.0",
+  "description": "a labrary for loading environment variables",
+  "main": "index.js",
+  "scripts": {
+    "test": "node ./test.js"
+  },
+  "author": "lovysprots66",
+  "license": "ISC"
+}
