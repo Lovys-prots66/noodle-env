@@ -16,12 +16,15 @@ function envloader(path = "./.env"){
         let variables = {};
 
         rl.on("line", (line) => {
-            const kv = line.split("=", 2);
-        
-            if(kv[0] && kv[1]){
-                variables[kv[0].trim()] = kv[1].trim();
-            }
-            
+            if(line.includes("=") && !line.startsWith("#")){
+                
+                const kv = line.split("=", 2);
+                
+                if(kv[0] && kv[1]){
+                    variables[kv[0].trim()] = kv[1].trim();
+                }
+
+            }            
         });
 
         rl.on("close", () => {
