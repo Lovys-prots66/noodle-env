@@ -6,26 +6,30 @@ function envloader(path = "./.env"){
     // get env content
     const envContent = fs.createReadStream(path);
 
-    const rl = readline.createInterface({
-        input: envContent,
-        crlfDelay : Infinity
-    });
+    return new Promise((resolve) => {
 
-    let variables = {};
+        const rl = readline.createInterface({
+            input: envContent,
+            crlfDelay : Infinity
+        });
 
-    rl.on("line", (line) => {
-        const kv = line.split("=", 2);
-    
-        if(kv[0] && kv[1]){
-            variables[kv[0]] = kv[1];
-        }
+        let variables = {};
+
+        rl.on("line", (line) => {
+            const kv = line.split("=", 2);
         
+            if(kv[0] && kv[1]){
+                variables[kv[0].trim()] = kv[1].trim();
+            }
+            
+        });
+
+        rl.on("close", () => {
+            process.env = {...process.env, ...variables};
+            resolve();
+        })
+
     });
-
-    rl.on("close", () => {
-        process.env = {...process.env, ...variables};
-    })
-
 }
 
 export default envloader;
